@@ -5,12 +5,26 @@ module Trade
 
   class User
 
+    @@users= Array.new
+
     attr_accessor :name, :credits, :items
 
     def self.named( name )
       student = self.new
       student.name = name
       student
+    end
+
+    def self.all
+      @@users
+    end
+
+    def self.by_name(name)
+      @@users.detect {|user| user.name = name}
+    end
+
+    def save
+      @@users.push(self)
     end
 
     def initialize
