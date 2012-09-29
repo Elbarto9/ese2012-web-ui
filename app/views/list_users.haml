@@ -1,0 +1,13 @@
+%link(rel="stylesheet" type="text/css" href="/style.css")
+%h1 Users
+%a{:href => "/logout"} Logout
+%ul
+  - for user in users
+    - if user.name == current_name
+      %li{:class => "selected"}
+        #{user.name} (your item= #{user.list_of_all_items})
+    - else
+      %li{:class => nil} #{user.name}
+
+%hr
+Time: #{time.strftime("%H:%M:%S")}

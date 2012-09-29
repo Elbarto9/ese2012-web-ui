@@ -1,6 +1,16 @@
 require 'tilt/haml'
-require '../models/trade/user'
+require '../app/models/trade/user'
 
-class Main
+class Main < Sinatra::Application
+
+  get "/" do
+    redirect '/login' unless session[:name]
+
+    haml :list_users, :locals => { :time  => Time.now ,
+                                   :users => Trade::User.all,
+                                   :current_name => session[:name]}
+
+  end
+
 
 end

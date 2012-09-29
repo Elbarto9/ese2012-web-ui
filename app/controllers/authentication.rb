@@ -1,5 +1,5 @@
 require 'tilt/haml'
-require '../models/trade/user'
+require '../app/models/trade/user'
 
 
 class Authentication < Sinatra::Application
