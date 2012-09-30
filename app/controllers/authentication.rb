@@ -12,11 +12,15 @@ class Authentication < Sinatra::Application
     name = params[:username]
     password = params[:password]
 
-    fail "Empty username or password" if name.nil? or password.nil?
+    if name.nil? or password.nil?
+      redirect '/login'
+    end
 
-    student = Trade::User.by_name(name)
+    user = Trade::User.by_name(name)
 
-    fail "Username or password are not valid" if user.nil? or password != name
+    if user.nil? or password != name
+      redirect '/login'
+    end
 
     session[:name] = name
     redirect '/'
@@ -26,6 +30,5 @@ class Authentication < Sinatra::Application
     session[:name] = nil
     redirect '/login'
   end
-
 
 end

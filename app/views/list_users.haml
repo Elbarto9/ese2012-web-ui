@@ -1,9 +1,12 @@
 %link(rel="stylesheet" type="text/css" href="/style.css")
-%h1 Users
+%h1 Welcome #{user_name}
+%a{:href => "/"} Home
+%br/
 %a{:href => "/logout"} Logout
+%h2 User
 %ul
   - for user in users
-    - if user.name == current_name
+    - if user.name == name
       %li{:class => "selected"}
         #{user.name} (your item= #{user.list_of_all_items})
     - else

@@ -5,7 +5,7 @@ module Trade
 
   class User
 
-    @@users= Array.new
+    @@users = Array.new
 
     attr_accessor :name, :credits, :items
 
@@ -20,7 +20,7 @@ module Trade
     end
 
     def self.by_name(name)
-      @@users.detect {|user| user.name = name}
+      @@users.detect {|user| user.name == name}
     end
 
     def save
@@ -28,7 +28,7 @@ module Trade
     end
 
     def initialize
-      self.credits = 100
+      self.credits = 10000
       self.items = Array.new
     end
 
@@ -37,6 +37,9 @@ module Trade
     # @param [Integer] price
     def create_item(name, price)
       item = Trade::Item.named( name , price , self )
+      add(item)
+      item.save
+      item
     end
 
     #adds the created item to the list of items.

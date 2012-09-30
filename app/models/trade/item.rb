@@ -5,14 +5,33 @@ module Trade
 
   class Item
 
-    attr_accessor :name, :price, :active, :owner
+    @@items = Array.new
+    @@id_count = 0
+
+    attr_accessor :id, :name, :price, :active, :owner
 
     def self.named( name, price, owner)
       item = self.new
+      item.id = @@id_count
+      @@id_count += 1
       item.name = name
       item.price = price
       item.owner = owner
       item
+    end
+
+    def self.all
+      @@items
+    end
+
+    def self.all_active
+      active_items = @@items.clone
+      active_items.delete_if {|item| !item.active}
+      active_items
+    end
+
+    def save
+      @@items.push(self)
     end
 
     def initialize
@@ -30,7 +49,11 @@ module Trade
     end
 
     def to_s
-      "#{name} for #{price}$"
+      "#{id}: #{name} for #{price}$"
+    end
+
+    def equal?(item)
+      self.id == item.id
     end
 
   end
