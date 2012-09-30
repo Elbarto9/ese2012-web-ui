@@ -6,4 +6,10 @@
   %label
     Password
     %input(type="password" name="password")
-  %input(type="submit" text="submit")
+  %input(type="submit" value="Login")
+
+%form( action="/register" method="POST" )
+  %label
+    Username
+    %input(type="text" name="username")
+  %input(type="submit" value ="Register")

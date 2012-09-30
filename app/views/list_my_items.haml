@@ -3,7 +3,8 @@
 %a{:href => "/"} Home
 %br/
 %a{:href => "/show_my_items"} My Items
-%br/
+%li
+  %a{:href => "/create_item_site"} Create new Item
 %a{:href => "/logout"} Logout
 %h2 My Items
 %ul
@@ -13,9 +14,11 @@
     %ul active = #{item.active}
     %footer
       %form(action = "/activate/#{item.id}" method = "POST")
-        %input(type="submit" value="activate")
+        %input(type="submit" value="Activate")
       %form(action = "/deactivate/#{item.id}" method = "POST")
-        %input(type="submit" value="deactivate")
+        %input(type="submit" value="Deactivate")
+      %form(action = "/delete_item/#{item.id}" method = "POST")
+        %input(type="submit" value="Delete")
     %p
 %hr
 Time: #{time.strftime("%H:%M:%S")}

@@ -23,6 +23,29 @@ class Main < Sinatra::Application
                                      :items_of_user => items}
   end
 
+  get "/create_item_site" do
+
+    haml :create_item, :locals => { :time => Time.now,
+                                      :user_name => session[:name]}
+  end
+
+  post "/create_item" do
+    item_name = params[:item_name]
+    price = params[:price].to_i
+    user = Trade::User.by_name(session[:name])
+    user.create_item(item_name, price)
+    redirect "/show_my_items"
+  end
+
+  post "/delete_item/:item_id" do
+    item_id_string = params[:item_id]
+    user = Trade::User.by_name(session[:name])
+    items = user.items
+    items.delete_if{|item| item.id.to_s == item_id_string}
+    Trade::Item.all.delete_if{|item| item.id.to_s == item_id_string}
+    redirect"/show_my_items"
+  end
+
   post "/activate/:item_id" do
     item_id_string = params[:item_id]
     user = Trade::User.by_name(session[:name])

@@ -4,6 +4,27 @@ require '../app/models/trade/user'
 
 class Authentication < Sinatra::Application
 
+
+  post "/register" do
+      username = params[:username]
+      if Trade::User.all.detect {|user| user.name == username} != nil
+        redirect "/registration_failed"
+      else
+        Trade::User.named(username).save
+      end
+      redirect "/registration_succeeded"
+  end
+
+  get "/registration_failed" do
+    haml :registration_failed
+  end
+
+  get "/registration_succeeded" do
+    haml :registration_success
+  end
+
+
+
   get "/login" do
     haml :login
   end
