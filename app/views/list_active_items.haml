@@ -10,11 +10,15 @@
   - for item in active_items
     %li #{item.name}
     %ul Price = #{item.price}$
-    %footer
-      %ul
-        %a{:href => "/checkout_user/#{item.owner.name}"} Owner: #{item.owner.name}
-        %form(action = "/buy/#{item.id}" method = "POST")
-          %input(type="submit" value="Buy")
+    - if item.owner.name != user_name
+      %footer
+        %ul
+          %a{:href => "/checkout_user/#{item.owner.name}"} Owner: #{item.owner.name}
+          %form(action = "/buy/#{item.id}" method = "POST")
+            %input(type="submit" value="Buy")
+    - else
+      %ul Owner: You
+
     %p
 
 %hr

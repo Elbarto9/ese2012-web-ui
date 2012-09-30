@@ -45,9 +45,11 @@ class Main < Sinatra::Application
   get "/checkout_user/:user_name" do
 
     user_name = params[:user_name]
+    user = Trade::User.by_name(user_name)
+    items = user.items
     haml :list_users, :locals => { :time  => Time.now ,
-                                  :name => user_name,
-                                  :users => Trade::User.all,
+                                  :user => user,
+                                  :items_of_user => items,
                                   :user_name => session[:name]}
   end
 
@@ -56,8 +58,17 @@ class Main < Sinatra::Application
     items = Trade::Item.all
     item = items.detect {|item| item.id.to_s == item_id_string}
     user = Trade::User.by_name(session[:name])
-    user.buy(item)
-    redirect "/"
+    if user.credits < item.price
+      redirect "/not_enough_money"
+    else
+      user.buy(item)
+      redirect "/"
+    end
+  end
+
+  get "/not_enough_money" do
+    haml :not_enough_money, :locals =>  {:time  => Time.now ,
+                                         :user_name => session[:name]}
   end
 
 

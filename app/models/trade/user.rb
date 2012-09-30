@@ -28,7 +28,7 @@ module Trade
     end
 
     def initialize
-      self.credits = 10000
+      self.credits = 1100
       self.items = Array.new
     end
 

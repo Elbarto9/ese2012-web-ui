@@ -5,12 +5,4 @@
 %a{:href => "/show_my_items"} My Items
 %br/
 %a{:href => "/logout"} Logout
-%h2 Items of #{user.name}
-%ul
-  - for item in items_of_user
-    %li #{item.name}
-    %ul Price = #{item.price}$
-    %ul active = #{item.active}
-
-%hr
-Time: #{time.strftime("%H:%M:%S")}
+%h3 Transaction failed, you have not enough money!
