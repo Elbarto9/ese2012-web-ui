@@ -11,7 +11,7 @@ class TradeTest < Test::Unit::TestCase
 
   def test_amount
     user = Trade::User.named('John')
-    assert(user.credits == 100, 'user has not got the right amount of credits')
+    assert(user.credits == 1100, 'user has not got the right amount of credits')
   end
 
   def test_name_of_item
@@ -57,20 +57,16 @@ class TradeTest < Test::Unit::TestCase
     user = Trade::User.named('John')
     first_item = user.create_item('computer', 20)
     second_item = user.create_item('laptop', 15)
-    user.add(first_item)
-    user.add(second_item)
-    print(user.list_of_all_items)
-    assert(user.list_of_all_items == 'computer for 20$ -- laptop for 15$ -- ')
+    assert(user.list_of_all_items == '10: computer for 20$ -- 11: laptop for 15$')
   end
 
   def test_list_all_active_items
     user = Trade::User.named('John')
     first_item = user.create_item('computer', 20)
     second_item = user.create_item('laptop', 15)
-    user.add(first_item)
-    user.add(second_item)
     second_item.activate
-    assert(user.list_of_active_items == 'laptop for 15$ -- ')
+    print(user.list_of_active_items)
+    assert(user.list_of_active_items == '9: laptop for 15$')
   end
 
   def test_successful_trade
@@ -87,15 +83,15 @@ class TradeTest < Test::Unit::TestCase
     jack.buy(computer)
     assert(computer.owner == jack, 'the sold item did not change the owner')
     assert(jack.items.any? {|x| x == computer}, 'buyer has not got the item')
-    assert(jack.credits == 80, 'buyer did not pay the right amount')
+    assert(jack.credits == 1080, 'buyer did not pay the right amount')
     assert(john.items.all? {|x| x != computer}, 'seller still possess the item')
-    assert(john.credits == 120, 'seller did not get enough money')
+    assert(john.credits == 1120, 'seller did not get enough money')
     end
 
    def test_not_enough_money
      john = Trade::User.named('John')
      jack = Trade::User.named('Jack')
-     computer = john.create_item('computer', 200)
+     computer = john.create_item('computer', 2000)
      laptop = john.create_item('laptop', 15)
      iphone = jack.create_item('iphone', 10)
      john.add(computer)
@@ -129,7 +125,7 @@ class TradeTest < Test::Unit::TestCase
     laptop = john.create_item('laptop', 15)
     john.add(computer)
     john.add(laptop)
-    assert(john.credits == 100, 'john has not got the right amount of credits')
+    assert(john.credits == 1100, 'john has not got the right amount of credits')
     john.activate(computer)
     john.buy(computer)
     assert(computer.active, 'john should not be able to buy his own item')

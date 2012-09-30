@@ -51,7 +51,7 @@ module Trade
     #activated the item, so that it is able to be sold.
     # @param [Item] item
     def activate(item)
-      if items.any? {|x| x == item}
+      if items.include?(item)
         item.activate
       end
     end
@@ -59,7 +59,7 @@ module Trade
     #deactivates the item, so that it is disabled.
     # @param [Item] item
     def deactivate(item)
-      if items.any? {|x| x == item}
+      if items.include?(item)
         item.deactivate
       end
     end
@@ -69,7 +69,7 @@ module Trade
     #of items.
     # @param [Item] item
     def buy(item)
-      if item.active == true && self.credits >= item.price && item.owner != self
+      if item.active && self.credits >= item.price && item.owner.name != self.name
         seller = item.owner
         seller.sell(item)
         item.owner = self
@@ -84,21 +84,16 @@ module Trade
     # @param [Item] item
     def sell(item)
       self.credits += item.price
-      items.delete_if {|x| x == item}
+      items.delete(item)
     end
 
     def list_of_active_items
-      active_items = items.clone
-      active_items.delete_if {|x| !x.active}
-      string = ""
-      active_items.each {|x| string += x.to_s + " -- "}
-      "#{string}"
+      active_items = items.select {|x| x.active}
+      "#{active_items.join(' -- ')}"
     end
 
     def list_of_all_items
-      string = ""
-      items.each {|x| string += x.to_s + " -- "}
-      "#{string}"
+      "#{items.join(' -- ')}"
     end
 
   end
