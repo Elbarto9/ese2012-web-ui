@@ -1,11 +1,12 @@
 require 'rubygems'
 require 'bundler/setup'
+require 'require_relative'
 
 require 'sinatra'
 require 'tilt/haml'
-require 'models/trade/user'
-require 'controllers/main'
-require 'controllers/authentication'
+require_relative 'models/trade/user'
+require_relative 'controllers/main'
+require_relative 'controllers/authentication'
 
 class App < Sinatra::Base
 

@@ -1,6 +1,7 @@
+require 'require_relative'
 require 'tilt/haml'
 
-require '../models/trade/user'
+require_relative '../models/trade/user'
 
 
 class Authentication < Sinatra::Application
