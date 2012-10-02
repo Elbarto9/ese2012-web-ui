@@ -3,9 +3,9 @@ require 'bundler/setup'
 
 require 'sinatra'
 require 'tilt/haml'
-require '../app/models/trade/user'
-require '../app/controllers/main'
-require '../app/controllers/authentication'
+require '../models/trade/user'
+require '../controllers/main'
+require '../controllers/authentication'
 
 class App < Sinatra::Base
 
