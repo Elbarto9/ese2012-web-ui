@@ -15,19 +15,21 @@ class Authentication < Sinatra::Application
       redirect "/registration_succeeded"
   end
 
+
   get "/registration_failed" do
     haml :registration_failed
   end
+
 
   get "/registration_succeeded" do
     haml :registration_success
   end
 
 
-
   get "/login" do
     haml :login
   end
+
 
   post "/login" do
     name = params[:username]
@@ -46,6 +48,7 @@ class Authentication < Sinatra::Application
     session[:name] = name
     redirect '/'
   end
+
 
   get "/logout" do
     session[:name] = nil

@@ -7,8 +7,6 @@ class Main < Sinatra::Application
   get "/" do
     redirect '/login' unless session[:name]
 
-
-
     haml :list_active_items, :locals => { :time => Time.now,
                                           :active_items => Trade::Item.all_active,
                                           :money => Trade::User.by_name(session[:name]).credits,
@@ -26,7 +24,6 @@ class Main < Sinatra::Application
   end
 
   get "/create_item_site" do
-
     haml :create_item, :locals => { :time => Time.now,
                                     :money =>Trade::User.by_name(session[:name]).credits,
                                     :user_name => session[:name]}
@@ -49,6 +46,7 @@ class Main < Sinatra::Application
     redirect"/show_my_items"
   end
 
+
   post "/activate/:item_id" do
     item_id_string = params[:item_id]
     user = Trade::User.by_name(session[:name])
@@ -57,6 +55,7 @@ class Main < Sinatra::Application
     user.activate(item)
     redirect "/show_my_items"
   end
+
 
   post "/deactivate/:item_id" do
     item_id_string = params[:item_id]
@@ -69,7 +68,6 @@ class Main < Sinatra::Application
 
 
   get "/checkout_user/:user_name" do
-
     user_name = params[:user_name]
     user = Trade::User.by_name(user_name)
     items = user.items
@@ -79,6 +77,7 @@ class Main < Sinatra::Application
                                   :money =>Trade::User.by_name(session[:name]).credits,
                                   :user_name => session[:name]}
   end
+
 
   post "/buy/:item_id" do
     item_id_string = params[:item_id]
@@ -93,6 +92,7 @@ class Main < Sinatra::Application
     end
   end
 
+
   get "/not_enough_money/:price" do
     price = params[:price].to_i
     money = Trade::User.by_name(session[:name]).credits
@@ -102,7 +102,6 @@ class Main < Sinatra::Application
                                          :money => money,
                                          :user_name => session[:name]}
   end
-
 
 
 end

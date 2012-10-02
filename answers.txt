@@ -1,0 +1,21 @@
+1.Explain how typical HTTP request is processed with the framework
+
+The main HTTP requests are 'get' and 'post' respectively to fetch and to send data to URL.
+Sinatra maps this requests with ruby code via routes/controllers. Usually the ruby code don't produce HTML itself, but
+instead forwards to a view:
+
+get "/" do
+    haml :hello_world
+end
+
+The code above renders the file hello_world.haml. The controller manipulates the model and the view renders it.
+
+2.Why should GET requests be idempotent
+
+In opposition to post requests, get requests shouldn't change the data on the server. You shouldn't be able to change
+them --> You can only read the data.
+
+3.Where should you format data for rendering?
+
+In the views. You should try to postpone formatting dates as late as possible to keep the separation between
+controllers and views.

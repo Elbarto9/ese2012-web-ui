@@ -65,7 +65,6 @@ class TradeTest < Test::Unit::TestCase
     first_item = user.create_item('computer', 20)
     second_item = user.create_item('laptop', 15)
     second_item.activate
-    print(user.list_of_active_items)
     assert(user.list_of_active_items == '9: laptop for 15$')
   end
 
