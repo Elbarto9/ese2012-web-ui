@@ -13,13 +13,18 @@
     %li #{item.name}
     %ul Price = #{item.price} $
     %ul active = #{item.active}
-    %footer
-      %form(action = "/activate/#{item.id}" method = "POST")
-        %input(type="submit" value="Activate")
-      %form(action = "/deactivate/#{item.id}" method = "POST")
-        %input(type="submit" value="Deactivate")
-      %form(action = "/delete_item/#{item.id}" method = "POST")
-        %input(type="submit" value="Delete")
+    %table
+      %tr
+        %td
+          %form(action = "/activate/#{item.id}" method = "POST")
+            %input(type="submit" value="Activate")
+        %td
+          %form(action = "/deactivate/#{item.id}" method = "POST")
+            %input(type="submit" value="Deactivate")
+        %td
+          %form(action = "/delete_item/#{item.id}" method = "POST")
+            %input(type="submit" value="Delete")
+
     %p
 %hr
 Time: #{time.strftime("%H:%M:%S")}

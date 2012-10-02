@@ -17,15 +17,15 @@ class App < Sinatra::Base
   set :public_folder, 'app/public'
 
   configure :development do
-    oscar = Trade::User.named( 'Oscar' )
-    oscar.save
-    oscar.create_item('Computer', 1000).activate
-    urs = Trade::User.named( 'Urs' )
-    urs.save
-    urs.create_item('Nintendo', 200).activate
-    konstantin = Trade::User.named( 'Konstantin')
-    konstantin.save
-    konstantin.create_item('XBOX', 250).activate
+    jack = Trade::User.named( 'Jack' )
+    jack.save
+    jack.create_item('Computer', 1000).activate
+    john = Trade::User.named( 'John' )
+    john.save
+    john.create_item('Nintendo', 200).activate
+    ese = Trade::User.named( 'ese')
+    ese.save
+    ese.create_item('XBOX', 250).activate
   end
 
 end
