@@ -1,6 +1,6 @@
 require 'tilt/haml'
-require '../app/models/trade/user'
-require '../app/models/trade/item'
+require '../models/trade/user'
+require '../models/trade/item'
 
 class Main < Sinatra::Application
 
